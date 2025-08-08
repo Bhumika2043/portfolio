@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinreddy Bhumika - AI Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ai-blue': '#2563eb',
+                        'ai-purple': '#4f46e5',
+                        'ai-cyan': '#0891b2',
+                        'dark-bg': '#1a202c',
+                        'card-bg': '#2d3748'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'fade-in': 'fadeIn 1s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #2563eb; }
+            to { box-shadow: 0 0 30px #0891b2, 0 0 40px #0891b2; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb, #0891b2, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .neural-network {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(8, 145, 178, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(79, 70, 229, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(37, 99, 235, 0.2) 0%, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-white min-h-screen">
+    <!-- Left Sidebar Profile -->
+    <div id="sidebar-profile" class="fixed left-0 top-0 h-full w-80 bg-gradient-to-b from-card-bg to-dark-bg z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-2xl">
+        <div class="p-6 h-full overflow-y-auto">
+            <!-- Profile Header -->
+            <div class="text-center mb-8">
+                <div class="relative w-32 h-32 mx-auto mb-4">
+                    <div class="w-full h-full rounded-full bg-gradient-to-r from-ai-blue to-ai-cyan p-1 animate-glow">
+                        <div id="profile-photo-container" class="w-full h-full rounded-full bg-dark-bg flex items-center justify-center overflow-hidden relative group cursor-pointer" title="Click to upload your professional photo">
+                            <img id="profile-photo" class="w-full h-full object-cover rounded-full transition-all duration-300 group-hover:brightness-75" alt="Professional Profile Photo">
+                            <span id="profile-initials" class="text-3xl font-bold gradient-text">CB</span>
+                            
+                            <!-- Upload Overlay -->
+                            <div id="upload-overlay" class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="text-center">
+                                    <svg class="w-8 h-8 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    <p class="text-xs text-white font-medium">Upload Photo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="file" id="photo-input" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" class="hidden">
+                </div>
+                <h2 class="text-xl font-bold gradient-text mb-2">Chinreddy Bhumika</h2>
+                <p class="text-ai-cyan text-sm font-medium mb-2">AI/ML Developer</p>
+                <div class="flex items-center justify-center space-x-1 text-xs text-gray-400">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span>Available for Projects</span>
+                </div>
+                <!-- Professional Photo Management -->
+                <div id="photo-options" class="mt-4 hidden">
+                    <div class="bg-gradient-to-r from-ai-blue/10 to-ai-cyan/10 rounded-lg p-3 border border-ai-blue/20">
+                        <div class="flex justify-center items-center space-x-4 mb-2">
+                            <button id="change-photo-btn" class="flex items-center space-x-1 text-xs text-ai-cyan hover:text-ai-blue transition-colors duration-300 font-medium">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                                </svg>
+                                <span>Update Photo</span>
+                            </button>
+                            <span class="text-xs text-gray-500">•</span>
+                            <button id="remove-photo-btn" class="flex items-center space-x-1 text-xs text-red-400 hover:text-red-300 transition-colors duration-300 font-medium">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                                <span>Remove</span>
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-400 text-center">Professional headshot recommended</p>
+                    </div>
+                </div>
+                
+                <!-- Upload Instructions -->
+                <div id="upload-instructions" class="mt-4">
+                    <div class="bg-gradient-to-r from-emerald-500/10 to-ai-cyan/10 rounded-lg p-3 border border-emerald-500/20">
+                        <div class="flex items-center justify-center space-x-2 mb-2">
+                            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-xs text-emerald-400 font-medium">Upload Your Professional Photo</p>
+                        </div>
+                        <ul class="text-xs text-gray-400 space-y-1">
+                            <li>• Click the profile circle above</li>
+                            <li>• Use a high-quality headshot</li>
+                            <li>• Max size: 5MB (JPG, PNG, GIF, WebP)</li>
+                            <li>• Square format works best</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="glass-effect p-3 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-ai-blue">7.8</div>
+                    <div class="text-xs text-gray-400">CGPA</div>
+                </div>
+                <div class="glass-effect p-3 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-ai-purple">3+</div>
+                    <div class="text-xs text-gray-400">Internships</div>
+                </div>
+                <div class="glass-effect p-3 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-ai-cyan">50+</div>
+                    <div class="text-xs text-gray-400">App Users</div>
+                </div>
+                <div class="glass-effect p-3 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-emerald-500">10%</div>
+                    <div class="text-xs text-gray-400">Churn Reduction</div>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="mb-8">
+                <ul class="space-y-2">
+                    <li><a href="#home" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-ai-blue/20 transition-colors duration-300 group">
+                        <span class="text-ai-blue group-hover:text-white">🏠</span>
+                        <span class="group-hover:text-white">Home</span>
+                    </a></li>
+                    <li><a href="#about" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-ai-blue/20 transition-colors duration-300 group">
+                        <span class="text-ai-blue group-hover:text-white">👤</span>
+                        <span class="group-hover:text-white">About</span>
+                    </a></li>
+                    <li><a href="#experience" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-ai-blue/20 transition-colors duration-300 group">
+                        <span class="text-ai-blue group-hover:text-white">💼</span>
+                        <span class="group-hover:text-white">Experience</span>
+                    </a></li>
+                    <li><a href="#projects" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-ai-blue/20 transition-colors duration-300 group">
+                        <span class="text-ai-blue group-hover:text-white">🚀</span>
+                        <span class="group-hover:text-white">Projects</span>
+                    </a></li>
+                    <li><a href="#contact" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-ai-blue/20 transition-colors duration-300 group">
+                        <span class="text-ai-blue group-hover:text-white">📞</span>
+                        <span class="group-hover:text-white">Contact</span>
+                    </a></li>
+                </ul>
+            </nav>
+
+            <!-- Skills Progress -->
+            <div class="mb-8">
+                <h3 class="text-sm font-semibold text-gray-300 mb-4">Core Skills</h3>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Python</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-ai-blue to-ai-cyan h-2 rounded-full" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Machine Learning</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-ai-purple to-ai-blue h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Data Science</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-ai-cyan to-ai-purple h-2 rounded-full" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>React/Web Dev</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-ai-blue to-ai-cyan h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="space-y-3">
+                <h3 class="text-sm font-semibold text-gray-300 mb-4">Quick Contact</h3>
+                <a href="mailto:chinreddybhumika@gmail.com" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700/50 transition-colors duration-300 text-sm">
+                    <span class="text-ai-blue">📧</span>
+                    <span class="text-gray-300 truncate">chinreddybhumika@gmail.com</span>
+                </a>
+                <a href="tel:8328685249" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700/50 transition-colors duration-300 text-sm">
+                    <span class="text-ai-blue">📱</span>
+                    <span class="text-gray-300">+91 8328685249</span>
+                </a>
+                <a href="https://wa.me/918328685249" target="_blank" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700/50 transition-colors duration-300 text-sm">
+                    <span class="text-emerald-500">💬</span>
+                    <span class="text-gray-300">WhatsApp</span>
+                </a>
+                <a href="https://www.linkedin.com/in/chinreddy-bhumika-45a6b8287" target="_blank" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700/50 transition-colors duration-300 text-sm">
+                    <span class="text-ai-blue">💼</span>
+                    <span class="text-gray-300">LinkedIn</span>
+                </a>
+            </div>
+
+            <!-- Download CV Button -->
+            <div class="mt-8">
+                <button class="w-full bg-gradient-to-r from-ai-blue to-ai-cyan px-4 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-ai-cyan/50 transition-all duration-300 transform hover:scale-105 text-sm">
+                    📄 Download CV
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Toggle Button (Mobile) -->
+    <button id="sidebar-toggle" class="fixed top-4 left-4 z-50 lg:hidden bg-gradient-to-r from-ai-blue to-ai-cyan p-3 rounded-full shadow-lg">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+
+    <!-- Main Content Wrapper -->
+    <div class="lg:ml-80 min-h-screen">
+        <!-- Navigation -->
+        <nav class="fixed top-0 right-0 left-0 lg:left-80 z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold gradient-text">CB</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-ai-cyan transition-colors duration-300">Home</a>
+                    <a href="#about" class="hover:text-ai-cyan transition-colors duration-300">About</a>
+                    <a href="#experience" class="hover:text-ai-cyan transition-colors duration-300">Experience</a>
+                    <a href="#projects" class="hover:text-ai-cyan transition-colors duration-300">Projects</a>
+                    <a href="#contact" class="hover:text-ai-cyan transition-colors duration-300">Contact</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center neural-network relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-20 w-2 h-2 bg-ai-cyan rounded-full animate-pulse"></div>
+            <div class="absolute top-40 right-32 w-3 h-3 bg-ai-purple rounded-full animate-pulse delay-1000"></div>
+            <div class="absolute bottom-32 left-1/4 w-2 h-2 bg-ai-blue rounded-full animate-pulse delay-2000"></div>
+            <div class="absolute bottom-20 right-20 w-3 h-3 bg-ai-cyan rounded-full animate-pulse delay-500"></div>
+        </div>
+        
+        <div class="text-center z-10 animate-slide-up">
+            <div class="mb-8">
+                <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-ai-blue to-ai-cyan p-1 animate-glow">
+                    <div id="hero-photo-container" class="w-full h-full rounded-full bg-dark-bg flex items-center justify-center overflow-hidden">
+                        <img id="hero-photo" class="w-full h-full object-cover rounded-full hidden" alt="Profile Photo">
+                        <span id="hero-initials" class="text-4xl font-bold gradient-text">CB</span>
+                    </div>
+                </div>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">
+                <span class="gradient-text">Chinreddy Bhumika</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8">AI/ML Developer & Data Scientist</p>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+                Innovative AI/ML developer with expertise in machine learning algorithms, data analysis, and natural language processing. 
+                Passionate about developing intelligent systems and data-driven solutions.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <span class="bg-ai-blue/20 text-ai-blue px-4 py-2 rounded-full text-sm font-medium">Python Expert</span>
+                <span class="bg-ai-purple/20 text-ai-purple px-4 py-2 rounded-full text-sm font-medium">Machine Learning</span>
+                <span class="bg-ai-cyan/20 text-ai-cyan px-4 py-2 rounded-full text-sm font-medium">Data Science</span>
+                <span class="bg-ai-blue/20 text-ai-blue px-4 py-2 rounded-full text-sm font-medium">AI Research</span>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#projects" class="bg-gradient-to-r from-ai-blue to-ai-cyan px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-ai-cyan/50 transition-all duration-300 transform hover:scale-105">
+                    View My Work
+                </a>
+                <a href="#contact" class="border-2 border-ai-cyan px-8 py-3 rounded-full font-semibold hover:bg-ai-cyan hover:text-dark-bg transition-all duration-300">
+                    Get In Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in">
+                    <h3 class="text-2xl font-semibold mb-6 text-ai-cyan">Education & Background</h3>
+                    <div class="space-y-6">
+                        <div class="glass-effect p-6 rounded-lg">
+                            <h4 class="text-xl font-semibold text-ai-blue">Vivekananda Global University, Jaipur</h4>
+                            <p class="text-gray-300">Artificial Intelligence • 7.8 CGPA</p>
+                            <p class="text-sm text-gray-400">2021-2025</p>
+                        </div>
+                        <div class="glass-effect p-6 rounded-lg">
+                            <h4 class="text-xl font-semibold text-ai-blue">Narayana Junior College</h4>
+                            <p class="text-gray-300">MPC • 776 Score</p>
+                            <p class="text-sm text-gray-400">2019-2021</p>
+                        </div>
+                        <div class="glass-effect p-6 rounded-lg">
+                            <h4 class="text-xl font-semibold text-ai-blue">A.V.R Em High School</h4>
+                            <p class="text-gray-300">SSC • 8.8 CGPA</p>
+                            <p class="text-sm text-gray-400">2019</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate-fade-in">
+                    <h3 class="text-2xl font-semibold mb-6 text-ai-cyan">Skills & Technologies</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-effect p-4 rounded-lg text-center hover:bg-ai-blue/20 transition-colors duration-300">
+                            <div class="text-3xl mb-2">🐍</div>
+                            <p class="font-semibold">Python</p>
+                        </div>
+                        <div class="glass-effect p-4 rounded-lg text-center hover:bg-ai-blue/20 transition-colors duration-300">
+                            <div class="text-3xl mb-2">🤖</div>
+                            <p class="font-semibold">Machine Learning</p>
+                        </div>
+                        <div class="glass-effect p-4 rounded-lg text-center hover:bg-ai-blue/20 transition-colors duration-300">
+                            <div class="text-3xl mb-2">📊</div>
+                            <p class="font-semibold">Data Analysis</p>
+                        </div>
+                        <div class="glass-effect p-4 rounded-lg text-center hover:bg-ai-blue/20 transition-colors duration-300">
+                            <div class="text-3xl mb-2">🧠</div>
+                            <p class="font-semibold">NLP</p>
+                        </div>
+                        <div class="glass-effect p-4 rounded-lg text-center hover:bg-ai-blue/20 transition-colors duration-300">
+                            <div class="text-3xl mb-2">⚛️</div>
+                            <p class="font-semibold">React</p>
+                        </div>
+                        <div class="glass-effect p-4 rounded-lg text-center hover:bg-ai-blue/20 transition-colors duration-300">
+                            <div class="text-3xl mb-2">🗄️</div>
+                            <p class="font-semibold">MongoDB</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-4 bg-gradient-to-b from-transparent to-card-bg/30">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Experience</h2>
+            <div class="space-y-8">
+                <div class="glass-effect p-8 rounded-lg hover:shadow-lg hover:shadow-ai-cyan/20 transition-all duration-300 animate-slide-up">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <h3 class="text-2xl font-semibold text-ai-cyan">Data Science Intern</h3>
+                        <span class="text-ai-blue font-medium">Bring Back EdTech</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Developed and implemented a predictive model for customer churn using Python, scikit-learn, and SQL. 
+                        Conducted exploratory data analysis and feature engineering to improve model accuracy. 
+                        Presented findings to the team and received positive feedback on the project's potential impact.
+                    </p>
+                </div>
+
+                <div class="glass-effect p-8 rounded-lg hover:shadow-lg hover:shadow-ai-cyan/20 transition-all duration-300 animate-slide-up">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <h3 class="text-2xl font-semibold text-ai-cyan">Python Intern</h3>
+                        <span class="text-ai-blue font-medium">Softcore Technologies</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Developed and deployed a machine learning model for customer churn prediction using Python, scikit-learn, and TensorFlow. 
+                        Achieved a 10% reduction in customer churn rate, leading to significant cost savings for the company. 
+                        Gained hands-on experience in data preprocessing, model training, and deployment.
+                    </p>
+                </div>
+
+                <div class="glass-effect p-8 rounded-lg hover:shadow-lg hover:shadow-ai-cyan/20 transition-all duration-300 animate-slide-up">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <h3 class="text-2xl font-semibold text-ai-cyan">Web Development Intern</h3>
+                        <span class="text-ai-blue font-medium">Pantech E-Learning</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-2">June 2023 - August 2023</p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Developed and deployed a new e-commerce website using React, Node.js, and MongoDB. 
+                        Implemented responsive design principles to ensure optimal user experience across different devices. 
+                        Gained hands-on experience in front-end development, back-end development, and database management.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications & Achievements Section -->
+    <section class="py-20 px-4 bg-gradient-to-b from-transparent to-card-bg/20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Certifications & Achievements</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-effect p-6 rounded-lg text-center hover:shadow-lg hover:shadow-ai-blue/20 transition-all duration-300">
+                    <div class="text-4xl mb-4">🏆</div>
+                    <h3 class="text-xl font-semibold mb-2 text-ai-blue">Customer Churn Reduction</h3>
+                    <p class="text-gray-300 text-sm">Achieved 10% reduction in customer churn rate using ML models</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg text-center hover:shadow-lg hover:shadow-ai-purple/20 transition-all duration-300">
+                    <div class="text-4xl mb-4">📱</div>
+                    <h3 class="text-xl font-semibold mb-2 text-ai-purple">App Development</h3>
+                    <p class="text-gray-300 text-sm">Mantra app downloaded by 50+ users for accessibility</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg text-center hover:shadow-lg hover:shadow-ai-cyan/20 transition-all duration-300">
+                    <div class="text-4xl mb-4">🎓</div>
+                    <h3 class="text-xl font-semibold mb-2 text-ai-cyan">Academic Excellence</h3>
+                    <p class="text-gray-300 text-sm">7.8 CGPA in Artificial Intelligence program</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Featured Projects</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-effect p-8 rounded-lg hover:shadow-lg hover:shadow-ai-purple/20 transition-all duration-300 transform hover:scale-105">
+                    <div class="text-4xl mb-4">🔐</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-ai-purple">User Authentication System</h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Developed a secure user authentication system allowing users to register, log in, and manage session-based access to protected pages. 
+                        Implemented frontend and backend components with form validation, password hashing, and database integration.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-ai-purple/20 text-ai-purple px-3 py-1 rounded-full text-sm">Authentication</span>
+                        <span class="bg-ai-purple/20 text-ai-purple px-3 py-1 rounded-full text-sm">Security</span>
+                        <span class="bg-ai-purple/20 text-ai-purple px-3 py-1 rounded-full text-sm">Full-Stack</span>
+                    </div>
+                </div>
+
+                <div class="glass-effect p-8 rounded-lg hover:shadow-lg hover:shadow-ai-cyan/20 transition-all duration-300 transform hover:scale-105">
+                    <div class="text-4xl mb-4">📱</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-ai-cyan">Mantra Mobile App</h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Designed an accessibility app using MIT App Inventor for visually and hearing-impaired individuals. 
+                        Downloaded by 50+ users, the app facilitates exercises through audio-visual cues, increasing accessibility and user engagement.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-ai-cyan/20 text-ai-cyan px-3 py-1 rounded-full text-sm">Accessibility</span>
+                        <span class="bg-ai-cyan/20 text-ai-cyan px-3 py-1 rounded-full text-sm">Mobile App</span>
+                        <span class="bg-ai-cyan/20 text-ai-cyan px-3 py-1 rounded-full text-sm">MIT App Inventor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 px-4 bg-gradient-to-b from-card-bg/20 to-transparent">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Professional Impact</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-effect p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-ai-blue rounded-full flex items-center justify-center mr-4">
+                            <span class="text-white font-bold">BB</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-ai-blue">Bring Back EdTech</h4>
+                            <p class="text-sm text-gray-400">Data Science Team</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"Bhumika's predictive model for customer churn showed exceptional accuracy and received positive feedback from our team for its potential business impact."</p>
+                </div>
+                <div class="glass-effect p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-ai-purple rounded-full flex items-center justify-center mr-4">
+                            <span class="text-white font-bold">ST</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-ai-purple">Softcore Technologies</h4>
+                            <p class="text-sm text-gray-400">Development Team</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"Her machine learning model implementation resulted in significant cost savings through a 10% reduction in customer churn rate."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 bg-gradient-to-t from-card-bg/50 to-transparent">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8 gradient-text">Let's Connect</h2>
+            <p class="text-xl text-gray-300 mb-12">Ready to collaborate on innovative AI solutions? Let's discuss your next project!</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="glass-effect p-6 rounded-lg hover:shadow-lg hover:shadow-ai-blue/20 transition-all duration-300">
+                    <div class="text-3xl mb-4">📧</div>
+                    <h3 class="text-lg font-semibold mb-2 text-ai-blue">Email</h3>
+                    <a href="mailto:chinreddybhumika@gmail.com" class="text-gray-300 hover:text-ai-cyan transition-colors duration-300 text-sm">
+                        chinreddybhumika@gmail.com
+                    </a>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-lg hover:shadow-lg hover:shadow-ai-blue/20 transition-all duration-300">
+                    <div class="text-3xl mb-4">📱</div>
+                    <h3 class="text-lg font-semibold mb-2 text-ai-blue">Phone</h3>
+                    <a href="tel:8328685249" class="text-gray-300 hover:text-ai-cyan transition-colors duration-300">
+                        +91 8328685249
+                    </a>
+                </div>
+
+                <div class="glass-effect p-6 rounded-lg hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300">
+                    <div class="text-3xl mb-4">💬</div>
+                    <h3 class="text-lg font-semibold mb-2 text-emerald-500">WhatsApp</h3>
+                    <a href="https://wa.me/918328685249?text=Hi%20Bhumika!%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20opportunities." target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-emerald-500 transition-colors duration-300">
+                        Message me
+                    </a>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-lg hover:shadow-lg hover:shadow-ai-blue/20 transition-all duration-300">
+                    <div class="text-3xl mb-4">💼</div>
+                    <h3 class="text-lg font-semibold mb-2 text-ai-blue">LinkedIn</h3>
+                    <a href="https://www.linkedin.com/in/chinreddy-bhumika-45a6b8287" target="_blank" class="text-gray-300 hover:text-ai-cyan transition-colors duration-300">
+                        Connect with me
+                    </a>
+                </div>
+            </div>
+
+            <div class="glass-effect p-6 rounded-lg">
+                <div class="text-2xl mb-4">📍</div>
+                <h3 class="text-lg font-semibold mb-2 text-ai-blue">Location</h3>
+                <p class="text-gray-300">Varadhayapalli, Mydukur(M), Kadapa(D), Andhra Pradesh</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Business Chat -->
+    <div id="whatsapp-container" class="fixed bottom-6 right-6 z-50">
+        <!-- WhatsApp Toggle Button -->
+        <button id="whatsapp-toggle" class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full shadow-lg hover:shadow-xl hover:shadow-emerald-500/50 transition-all duration-300 flex items-center justify-center animate-pulse">
+            <svg id="whatsapp-icon" class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+            </svg>
+            <svg id="close-whatsapp-icon" class="w-8 h-8 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- WhatsApp Chat Window -->
+        <div id="whatsapp-window" class="absolute bottom-20 right-0 w-80 h-96 glass-effect rounded-lg shadow-2xl hidden flex-col">
+            <!-- Chat Header -->
+            <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 p-4 rounded-t-lg">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white">Chinreddy Bhumika</h3>
+                        <div class="flex items-center space-x-1">
+                            <div class="w-2 h-2 bg-green-300 rounded-full"></div>
+                            <p class="text-xs text-green-100">Online • Typically replies instantly</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="whatsapp-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-gradient-to-b from-emerald-50/10 to-emerald-100/5">
+                <div class="flex items-start space-x-2">
+                    <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-xs text-white font-bold">CB</span>
+                    </div>
+                    <div class="bg-white/90 text-gray-800 p-3 rounded-lg rounded-tl-none max-w-xs shadow-sm">
+                        <p class="text-sm">👋 Hi! I'm Bhumika, AI/ML Developer.</p>
+                        <p class="text-sm mt-1">Ready to discuss your project? Choose a topic:</p>
+                    </div>
+                </div>
+                
+                <!-- Quick Action Buttons -->
+                <div class="flex flex-col space-y-2 px-2">
+                    <button onclick="sendQuickMessage('AI/ML Development')" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-full text-sm transition-colors duration-300 text-left">
+                        🤖 AI/ML Development Services
+                    </button>
+                    <button onclick="sendQuickMessage('Data Science')" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-full text-sm transition-colors duration-300 text-left">
+                        📊 Data Science Consultation
+                    </button>
+                    <button onclick="sendQuickMessage('Web Development')" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-full text-sm transition-colors duration-300 text-left">
+                        💻 Web Development Projects
+                    </button>
+                    <button onclick="sendQuickMessage('Collaboration')" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-full text-sm transition-colors duration-300 text-left">
+                        🤝 Business Collaboration
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-emerald-200/20">
+                <div class="flex space-x-2">
+                    <input id="whatsapp-input" type="text" placeholder="Type your message..." class="flex-1 bg-white/10 text-white placeholder-gray-300 px-3 py-2 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 border border-white/20">
+                    <button id="whatsapp-send-btn" class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-full transition-colors duration-300">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="mt-2 text-center">
+                    <button id="open-whatsapp-btn" class="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        💬 Continue on WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer -->
+        <footer class="py-8 px-4 border-t border-gray-700">
+            <div class="max-w-6xl mx-auto text-center">
+                <p class="text-gray-400">© 2024 Chinreddy Bhumika. All rights reserved.</p>
+                <p class="text-sm text-gray-500 mt-2">Built with passion for AI and innovation</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Sidebar toggle functionality
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarProfile = document.getElementById('sidebar-profile');
+        
+        sidebarToggle.addEventListener('click', function() {
+            sidebarProfile.classList.toggle('-translate-x-full');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth < 1024 && 
+                !sidebarProfile.contains(e.target) && 
+                !sidebarToggle.contains(e.target) &&
+                !sidebarProfile.classList.contains('-translate-x-full')) {
+                sidebarProfile.classList.add('-translate-x-full');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                // Simple mobile menu implementation
+                const navLinks = nav.querySelector('.hidden');
+                if (navLinks && navLinks.classList.contains('hidden')) {
+                    navLinks.classList.remove('hidden');
+                    navLinks.classList.add('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'w-full', 'bg-dark-bg', 'p-4');
+                } else if (navLinks) {
+                    navLinks.classList.add('hidden');
+                    navLinks.classList.remove('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'w-full', 'bg-dark-bg', 'p-4');
+                }
+            });
+        }
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-dark-bg/90');
+            } else {
+                nav.classList.remove('bg-dark-bg/90');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for scroll animations
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // WhatsApp Business Chat functionality
+        const whatsappToggle = document.getElementById('whatsapp-toggle');
+        const whatsappWindow = document.getElementById('whatsapp-window');
+        const whatsappIcon = document.getElementById('whatsapp-icon');
+        const closeWhatsappIcon = document.getElementById('close-whatsapp-icon');
+        const whatsappMessages = document.getElementById('whatsapp-messages');
+        const whatsappInput = document.getElementById('whatsapp-input');
+        const whatsappSendBtn = document.getElementById('whatsapp-send-btn');
+        const openWhatsappBtn = document.getElementById('open-whatsapp-btn');
+
+        let isWhatsappOpen = false;
+        let conversationHistory = [];
+
+        // Business service templates
+        const serviceTemplates = {
+            'AI/ML Development': {
+                message: "Hi Bhumika! I'm interested in AI/ML development services. I'd like to discuss:",
+                details: "• Machine Learning model development\n• Data analysis and insights\n• AI system integration\n• Custom algorithm development"
+            },
+            'Data Science': {
+                message: "Hello! I need data science consultation for:",
+                details: "• Data analysis and visualization\n• Predictive modeling\n• Statistical analysis\n• Business intelligence solutions"
+            },
+            'Web Development': {
+                message: "Hi! I'm looking for web development services including:",
+                details: "• Full-stack web applications\n• React/Node.js development\n• Database design and integration\n• Responsive web design"
+            },
+            'Collaboration': {
+                message: "Hello Bhumika! I'd like to explore business collaboration opportunities:",
+                details: "• Partnership opportunities\n• Joint project development\n• Technical consulting\n• Long-term collaboration"
+            }
+        };
+
+        function toggleWhatsapp() {
+            isWhatsappOpen = !isWhatsappOpen;
+            if (isWhatsappOpen) {
+                whatsappWindow.classList.remove('hidden');
+                whatsappWindow.classList.add('flex');
+                whatsappIcon.classList.add('hidden');
+                closeWhatsappIcon.classList.remove('hidden');
+            } else {
+                whatsappWindow.classList.add('hidden');
+                whatsappWindow.classList.remove('flex');
+                whatsappIcon.classList.remove('hidden');
+                closeWhatsappIcon.classList.add('hidden');
+            }
+        }
+
+        function addWhatsappMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex items-start space-x-2';
+            
+            if (isUser) {
+                messageDiv.className += ' justify-end';
+                messageDiv.innerHTML = `
+                    <div class="bg-emerald-500 text-white p-3 rounded-lg rounded-tr-none max-w-xs shadow-sm">
+                        <p class="text-sm">${message}</p>
+                        <p class="text-xs text-emerald-100 mt-1">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                    </div>
+                    <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-xs text-white font-bold">You</span>
+                    </div>
+                `;
+                conversationHistory.push(`You: ${message}`);
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-xs text-white font-bold">CB</span>
+                    </div>
+                    <div class="bg-white/90 text-gray-800 p-3 rounded-lg rounded-tl-none max-w-xs shadow-sm">
+                        <p class="text-sm">${message}</p>
+                        <p class="text-xs text-gray-500 mt-1">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                    </div>
+                `;
+                conversationHistory.push(`Bhumika: ${message}`);
+            }
+            
+            whatsappMessages.appendChild(messageDiv);
+            whatsappMessages.scrollTop = whatsappMessages.scrollHeight;
+        }
+
+        function sendQuickMessage(serviceType) {
+            const template = serviceTemplates[serviceType];
+            addWhatsappMessage(template.message, true);
+            
+            // Simulate Bhumika's response
+            setTimeout(() => {
+                addWhatsappMessage(`Great! I'd love to help you with ${serviceType.toLowerCase()}. Let me know more about your specific requirements and timeline.`, false);
+            }, 1500);
+        }
+
+        function sendWhatsappMessage() {
+            const message = whatsappInput.value.trim();
+            if (message) {
+                addWhatsappMessage(message, true);
+                whatsappInput.value = '';
+                
+                // Simulate response
+                setTimeout(() => {
+                    addWhatsappMessage("Thanks for your message! I'll get back to you shortly. For immediate response, please click 'Continue on WhatsApp' below.", false);
+                }, 1000);
+            }
+        }
+
+        function openWhatsappApp() {
+            // Create comprehensive message with conversation history
+            let fullMessage = "Hi Bhumika! I visited your portfolio and would like to discuss business opportunities.\n\n";
+            
+            if (conversationHistory.length > 0) {
+                fullMessage += "Here's our conversation so far:\n";
+                fullMessage += conversationHistory.join('\n') + '\n\n';
+            }
+            
+            fullMessage += "I'm interested in professional collaboration. Please let me know your availability for a detailed discussion.\n\n";
+            fullMessage += "Best regards!";
+            
+            const encodedMessage = encodeURIComponent(fullMessage);
+            const whatsappUrl = `https://wa.me/918328685249?text=${encodedMessage}`;
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappUrl, '_blank');
+            
+            // Show confirmation message
+            addWhatsappMessage("Opening WhatsApp... Your conversation will continue there!", false);
+        }
+
+        // Event listeners
+        whatsappToggle.addEventListener('click', toggleWhatsapp);
+        whatsappSendBtn.addEventListener('click', sendWhatsappMessage);
+        openWhatsappBtn.addEventListener('click', openWhatsappApp);
+        
+        whatsappInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendWhatsappMessage();
+            }
+        });
+
+        // Close WhatsApp chat when clicking outside
+        document.addEventListener('click', function(e) {
+            if (isWhatsappOpen && !whatsappToggle.contains(e.target) && !whatsappWindow.contains(e.target)) {
+                toggleWhatsapp();
+            }
+        });
+
+        // Make sendQuickMessage globally available
+        window.sendQuickMessage = sendQuickMessage;
+
+        // Professional Profile Photo System
+        const profilePhotoContainer = document.getElementById('profile-photo-container');
+        const photoInput = document.getElementById('photo-input');
+        const profilePhoto = document.getElementById('profile-photo');
+        const profileInitials = document.getElementById('profile-initials');
+        const heroPhoto = document.getElementById('hero-photo');
+        const heroInitials = document.getElementById('hero-initials');
+        const photoOptions = document.getElementById('photo-options');
+        const uploadInstructions = document.getElementById('upload-instructions');
+        const removePhotoBtn = document.getElementById('remove-photo-btn');
+        const changePhotoBtn = document.getElementById('change-photo-btn');
+
+        // Load saved photo from localStorage on page load
+        const savedPhoto = localStorage.getItem('professionalPhoto');
+        if (savedPhoto) {
+            displayProfessionalPhoto(savedPhoto);
+        }
+
+        function displayProfessionalPhoto(imageSrc) {
+            // Update sidebar photo
+            profilePhoto.src = imageSrc;
+            profilePhoto.style.display = 'block';
+            profileInitials.style.display = 'none';
+            
+            // Update hero section photo
+            heroPhoto.src = imageSrc;
+            heroPhoto.classList.remove('hidden');
+            heroInitials.classList.add('hidden');
+            
+            // Show photo management options and hide instructions
+            photoOptions.classList.remove('hidden');
+            uploadInstructions.classList.add('hidden');
+            
+            // Add success feedback
+            showPhotoFeedback('✅ Professional photo uploaded successfully!', 'success');
+        }
+
+        function removeProfessionalPhoto() {
+            // Hide photos and show initials
+            profilePhoto.style.display = 'none';
+            profileInitials.style.display = 'block';
+            heroPhoto.classList.add('hidden');
+            heroInitials.classList.remove('hidden');
+            
+            // Hide photo options and show instructions
+            photoOptions.classList.add('hidden');
+            uploadInstructions.classList.remove('hidden');
+            
+            // Clear from localStorage
+            localStorage.removeItem('professionalPhoto');
+            
+            // Reset file input
+            photoInput.value = '';
+            
+            // Show removal feedback
+            showPhotoFeedback('📷 Photo removed. Upload a new professional headshot.', 'info');
+        }
+
+        function showPhotoFeedback(message, type = 'info') {
+            // Create feedback element
+            const feedback = document.createElement('div');
+            feedback.className = `fixed top-4 right-4 z-50 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform translate-x-full`;
+            
+            if (type === 'success') {
+                feedback.className += ' bg-emerald-500 text-white';
+            } else if (type === 'error') {
+                feedback.className += ' bg-red-500 text-white';
+            } else {
+                feedback.className += ' bg-ai-blue text-white';
+            }
+            
+            feedback.textContent = message;
+            document.body.appendChild(feedback);
+            
+            // Animate in
+            setTimeout(() => {
+                feedback.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                feedback.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(feedback);
+                }, 300);
+            }, 3000);
+        }
+
+        function handleProfessionalPhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validate file type
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+            if (!allowedTypes.includes(file.type)) {
+                showPhotoFeedback('❌ Please select a valid image file (JPG, PNG, GIF, WebP)', 'error');
+                return;
+            }
+            
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showPhotoFeedback('❌ Image too large. Please select a file smaller than 5MB.', 'error');
+                return;
+            }
+            
+            // Show loading feedback
+            showPhotoFeedback('📤 Uploading your professional photo...', 'info');
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageSrc = e.target.result;
+                displayProfessionalPhoto(imageSrc);
+                
+                // Save to localStorage with professional key
+                localStorage.setItem('professionalPhoto', imageSrc);
+            };
+            
+            reader.onerror = function() {
+                showPhotoFeedback('❌ Error uploading photo. Please try again.', 'error');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // Event listeners for professional photo functionality
+        profilePhotoContainer.addEventListener('click', function() {
+            photoInput.click();
+        });
+
+        changePhotoBtn.addEventListener('click', function() {
+            photoInput.click();
+        });
+
+        photoInput.addEventListener('change', handleProfessionalPhotoUpload);
+
+        removePhotoBtn.addEventListener('click', function() {
+            if (confirm('Remove your professional photo? You can always upload a new one.')) {
+                removeProfessionalPhoto();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b69ceba4672e97',t:'MTc1NDU2ODAyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
